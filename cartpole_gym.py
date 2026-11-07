@@ -17,8 +17,11 @@ import numpy as np
 from PIL import Image
 
 
-def design_gains(plant):
+def design_gains(plant, rates=(1.0, 1.2, 2.0, 3.0, 4.0)):
     """Match the nominal continuous-force rod model to five chosen poles."""
+    rates = np.asarray(rates, dtype=float)
+    if rates.shape != (5,) or np.any(rates <= 0):
+        raise ValueError("Choose five positive pole rates.")
     cart_mass = plant.masscart
     pole_mass = plant.masspole
     length = plant.length
@@ -26,7 +29,7 @@ def design_gains(plant):
     c = 4.0 / 3.0
 
     # polynomial coefficients
-    _, a1, a2, a3, a4, a5 = np.poly([-1.0, -1.2, -2.0, -3.0, -4.0])
+    _, a1, a2, a3, a4, a5 = np.poly(-rates)
 
     # alpha = 4/3 * (M+m)-m
     alpha = c * (cart_mass + pole_mass) - pole_mass
