@@ -1,13 +1,13 @@
 """Point-mass cart-pole: an outer position PID and an inner angle PD.
 
 Install: python -m pip install numpy matplotlib pillow gymnasium
-Run:     python cartpole_pid.py
-Animate: python cartpole_pid.py --render
-Faster:  python cartpole_pid.py --render --speed 4
-No I:    python cartpole_pid.py --render --no-i
-No D:    python cartpole_pid.py --render --no-d
-P only:  python cartpole_pid.py --render --no-i --no-d
-GIF:     python cartpole_pid.py --gif cartpole.gif
+Run:     python cartpole_custom.py
+Animate: python cartpole_custom.py --render
+Faster:  python cartpole_custom.py --render --speed 4
+No I:    python cartpole_custom.py --render --no-i
+No D:    python cartpole_custom.py --render --no-d
+P only:  python cartpole_custom.py --render --no-i --no-d
+GIF:     python cartpole_custom.py --save-gif cartpole.gif
 
 The state is (p, p_dot, alpha, alpha_dot). Alpha is measured from upward,
 positive when the pole leans right. This balances near upright, it is not
@@ -42,7 +42,7 @@ class Parameters:
 
 
 # p''     = (u + m * sin(alpha)(l*a'^2 - g * cos(alpha)))/(M + m * sin^2(alpha))
-# alpha'' = (g * sin(alpha) + p''*cos(alpha))/l.
+# alpha'' = (g * sin(alpha) - p''*cos(alpha))/l.
 def dynamics(state, force, par):
     """Exact nonlinear equations, with zero angle at upright."""
     p, velocity, alpha, omega = state

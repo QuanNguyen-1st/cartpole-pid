@@ -1,8 +1,8 @@
 """
 Install: python -m pip install "gymnasium[classic-control]" pillow
-Run:     python cartpole_gym_pid.py --render
-Record:  python cartpole_gym_pid.py --save-gif cartpole.gif
-Compare: python cartpole_gym_pid.py --no-i --episodes 20
+Run:     python cartpole_gym.py --render
+Record:  python cartpole_gym.py --save-gif cartpole.gif
+Compare: python cartpole_gym.py --no-i --episodes 20
 
 The cascade PID computes a requested force. Its sign selects one of
 Gymnasium's two actions.
