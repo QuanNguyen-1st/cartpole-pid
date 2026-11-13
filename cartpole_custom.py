@@ -233,7 +233,7 @@ class CascadedPID:
         alpha_ref = -(k.position_p * p + k.position_d * v + k.position_i * self.z) / k.angle_p
         raw = k.angle_p * (alpha - alpha_ref) + k.angle_d * omega
         force = float(np.clip(raw, -self.par.force_limit, self.par.force_limit))
-        # Integrate after computing u: explicit Euler, consistent with the report.
+        # Integrate after computing u.
         would_push_further = (raw - force) * (k.position_i * p) > 0
         if k.position_i != 0 and not would_push_further:
             self.z += self.par.dt * p
